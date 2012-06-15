@@ -1,7 +1,5 @@
 package controllers;
 
-import models.User;
-import play.*;
 import play.mvc.*;
 
 import views.html.*;

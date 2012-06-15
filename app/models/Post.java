@@ -2,8 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,11 +12,17 @@ import java.util.Date;
  * Time: 11:07 PM
  * To change this template use File | Settings | File Templates.
  */
+@Entity
+@Table(name = "blog_post")
 public class Post extends Model {
+    @Id
+    public Long id;
+
     public String title;
     public Date postedAt;
 
-    @Lob
+
+//    @Lob ///removing lob until I can figure out why the test are failing
     public String content;
 
     @ManyToOne
@@ -30,4 +35,6 @@ public class Post extends Model {
         this.content = content;
         this.postedAt = new Date();
     }
+
+    public static Finder<Long,Post> find = new Finder<Long, Post>(Long.class,Post.class);
 }

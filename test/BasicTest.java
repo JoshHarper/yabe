@@ -1,4 +1,5 @@
 import com.avaje.ebean.FetchConfig;
+import models.Comment;
 import models.Post;
 import models.User;
 import org.junit.Before;
@@ -56,6 +57,38 @@ public class BasicTest {
 
                 assertThat("Hello world").isEqualTo(firstPost.content);
 
+            }
+        });
+    }
+
+    @Test
+    public void postComments() {
+        running(fakeApplication(inMemoryDatabase()), new Runnable() {
+            @Override
+            public void run() {
+                User bob = new User("bob@gmail.com", "secret", "Bob");
+                bob.save();
+                Post bobPost = new Post(bob, "My first post", "Hello world");
+                bobPost.save();
+
+                new Comment(bobPost, "Jeff", "Nice post").save();
+                new Comment(bobPost, "Tom", "I knew that !").save();
+
+                List<Comment> bobPostComments = Comment.find.where().eq("post", bobPost).findList();
+
+                assertThat(bobPostComments).hasSize(2);
+
+                Comment firstComment = bobPostComments.get(0);
+                assertThat(firstComment).isNotNull();
+                assertThat("Jeff").isEqualTo(firstComment.author);
+                assertThat("Nice post").isEqualTo(firstComment.content);
+                assertThat(firstComment.postedAt).isNotNull();
+
+                Comment secondComment = bobPostComments.get(1);
+                assertThat(secondComment).isNotNull();
+                assertThat("Tom").isEqualTo(secondComment.author);
+                assertThat("I knew that !").isEqualTo(secondComment.content);
+                assertThat(secondComment.postedAt).isNotNull();
             }
         });
     }

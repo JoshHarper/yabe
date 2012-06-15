@@ -7,7 +7,7 @@ create table blog_comments (
   id                        bigint not null,
   author                    varchar(255),
   posted_at                 timestamp,
-  content                   varchar(255),
+  content                   clob,
   post_id                   bigint,
   constraint pk_blog_comments primary key (id))
 ;
@@ -16,7 +16,7 @@ create table blog_post (
   id                        bigint not null,
   title                     varchar(255),
   posted_at                 timestamp,
-  content                   varchar(255),
+  content                   clob,
   author_id                 bigint,
   constraint pk_blog_post primary key (id))
 ;

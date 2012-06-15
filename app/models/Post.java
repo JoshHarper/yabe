@@ -22,8 +22,8 @@ public class Post extends Model {
     public Date postedAt;
 
 
-//    @Lob ///removing lob until I can figure out why the test are failing
-    public String content;
+    @Lob
+    private String content;
 
     @ManyToOne
     public User author;
@@ -34,6 +34,14 @@ public class Post extends Model {
         this.title = title;
         this.content = content;
         this.postedAt = new Date();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public static Finder<Long,Post> find = new Finder<Long, Post>(Long.class,Post.class);

@@ -55,7 +55,7 @@ public class BasicTest {
                 assertThat("My first post").isEqualTo(firstPost.title);
                 assertThat(firstPost.postedAt).isNotNull();
 
-                assertThat("Hello world").isEqualTo(firstPost.content);
+                assertThat("Hello world").isEqualTo(firstPost.getContent());
 
             }
         });
@@ -81,13 +81,13 @@ public class BasicTest {
                 Comment firstComment = bobPostComments.get(0);
                 assertThat(firstComment).isNotNull();
                 assertThat("Jeff").isEqualTo(firstComment.author);
-                assertThat("Nice post").isEqualTo(firstComment.content);
+                assertThat("Nice post").isEqualTo(firstComment.getContent());
                 assertThat(firstComment.postedAt).isNotNull();
 
                 Comment secondComment = bobPostComments.get(1);
                 assertThat(secondComment).isNotNull();
                 assertThat("Tom").isEqualTo(secondComment.author);
-                assertThat("I knew that !").isEqualTo(secondComment.content);
+                assertThat("I knew that !").isEqualTo(secondComment.getContent());
                 assertThat(secondComment.postedAt).isNotNull();
             }
         });

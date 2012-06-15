@@ -2,10 +2,7 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -24,7 +21,8 @@ public class Comment extends Model {
     public String author;
     public Date postedAt;
 
-    public String content;
+    @Lob
+    private String content;
 
     @ManyToOne
     public Post post;
@@ -35,6 +33,14 @@ public class Comment extends Model {
         this.author = author;
         this.content = content;
         this.postedAt = new Date();
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public static Finder<Long,Comment> find = new Finder<Long, Comment>(Long.class,Comment.class);

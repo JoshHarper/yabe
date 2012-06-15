@@ -19,7 +19,7 @@ public class UserTest {
             @Override
             public void run() {
                 new User("bob@gmail.com", "secret", "Bob").save();
-                User bob = User.find.all().get(0);
+                User bob = User.find.findUnique();
                 assertThat(bob).isNotNull();
                 assertThat("Bob").isEqualTo(bob.fullName);
                 assertThat("secret").isEqualTo(bob.password);

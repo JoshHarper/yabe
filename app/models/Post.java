@@ -3,7 +3,9 @@ package models;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,13 +30,25 @@ public class Post extends Model {
     @ManyToOne
     public User author;
 
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    public List<Comment> comments;
+
 
     public Post(User author, String title, String content) {
+        this.comments = new ArrayList<Comment>();
         this.author = author;
         this.title = title;
         this.content = content;
         this.postedAt = new Date();
     }
+
+    public Post addComment(String author, String content) {
+        Comment newComment = new Comment(this, author, content);
+        newComment.save();
+        this.save();
+        return this;
+    }
+
 
     public String getContent() {
         return content;

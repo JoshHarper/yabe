@@ -1,5 +1,11 @@
 package models;
 
+import play.db.ebean.Model;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Josh
@@ -7,5 +13,24 @@ package models;
  * Time: 3:13 PM
  * To change this template use File | Settings | File Templates.
  */
-public class User {
+@Entity
+@Table(name = "blog_user")
+public class User extends Model {
+    @Id
+    public Long id;
+
+    public String email;
+    public String password;
+    public String fullName;
+    public boolean isAdmin;
+
+    public User(String email, String password, String fullName) {
+        this.email = email;
+        this.password = password;
+        this.fullName = fullName;
+    }
+
+    public static Finder<Long,User> find = new Finder<Long, User>(Long.class,User.class);
+
+
 }

@@ -1,7 +1,7 @@
-@(message: String)
+@(user: User)
 
-@main("Welcome to Play 2.0") {
-    
-    @play20.welcome(message, style = "Java")
-    
-}
+
+<div>@user.fullName</div>
+<div>@user.email</div>
+<div>@user.password</div>
+

@@ -92,4 +92,49 @@ public class BasicTest {
             }
         });
     }
+
+    @Test
+    public void useTheCommentsRelation() {
+        running(fakeApplication(inMemoryDatabase()),new Runnable() {
+            @Override
+            public void run() {
+                User bob = new User("bob@gmail.com","secret","Bob");
+                bob.save();
+
+                Post bobPost = new Post(bob, "My first post","Hello world");
+                bobPost.addComment("Jeff", "Nice post");
+                bobPost.addComment("Tom", "I knew that!");
+
+
+                assertThat(User.find.all().size()).isEqualTo(1);
+                assertThat(Post.find.all().size()).isEqualTo(1);
+                assertThat(Comment.find.all().size()).isEqualTo(2);
+
+
+                Post getBobPost = Post.find.where().eq("author",bob).findUnique();
+                assertThat(getBobPost).isNotNull();
+                System.out.println(getBobPost.getComments().size());
+                for (Comment comment : getBobPost.getComments()) {
+                    System.out.println("Comment message: " + comment.getContent());
+                }
+//                assertThat(getBobPost.comments.get(0).author).isEqualTo("Jeff");
+
+
+//                assertThat(bobPost.comments.size()).isEqualTo(2);
+
+                /*bobPost.delete();
+                System.out.println("Users: " + User.find.all().size());
+                System.out.println("Posts: " + Post.find.all().size());
+                System.out.println("Comments: " + Comment.find.all().size());
+                assertThat(User.find.all().size()).isEqualTo(1);
+                assertThat(Post.find.all().size()).isEqualTo(0);
+                assertThat(Comment.find.all().size()).isEqualTo(0);*/
+
+
+
+            }
+        } );
+
+
+    }
 }

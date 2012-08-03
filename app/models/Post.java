@@ -30,7 +30,7 @@ public class Post extends Model {
     @ManyToOne
     public User author;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "post")
     public List<Comment> comments;
 
 
@@ -45,6 +45,7 @@ public class Post extends Model {
     public Post addComment(String author, String content) {
         Comment newComment = new Comment(this, author, content);
         newComment.save();
+        this.comments.add(newComment);
         this.save();
         return this;
     }
@@ -56,6 +57,22 @@ public class Post extends Model {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public static Finder<Long,Post> find = new Finder<Long, Post>(Long.class,Post.class);

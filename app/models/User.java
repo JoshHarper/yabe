@@ -30,6 +30,14 @@ public class User extends Model {
         this.fullName = fullName;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public static Finder<Long,User> find = new Finder<Long, User>(Long.class,User.class);
 
 

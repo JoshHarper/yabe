@@ -43,5 +43,21 @@ public class Comment extends Model {
         this.content = content;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
+    }
+
     public static Finder<Long,Comment> find = new Finder<Long, Comment>(Long.class,Comment.class);
 }

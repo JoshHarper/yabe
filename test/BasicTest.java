@@ -1,8 +1,6 @@
-import com.avaje.ebean.FetchConfig;
 import models.Comment;
 import models.Post;
 import models.User;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -129,12 +127,7 @@ public class BasicTest {
                 assertThat(User.find.all().size()).isEqualTo(1);
                 assertThat(Post.find.all().size()).isEqualTo(0);
                 assertThat(Comment.find.all().size()).isEqualTo(0);*/
-
-
-
             }
         } );
-
-
     }
 }
